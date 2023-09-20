@@ -1,6 +1,7 @@
 package com.yugen.springbootrestapi.payload;
 
-import com.yugen.springbootrestapi.entity.Comment;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 import java.util.Set;
@@ -19,16 +20,22 @@ public class PostDto {
     /**
      * Title of the post.
      */
+    @NotEmpty(message = "Title is required")
+    @Size(min = 2, message = "Title must have at least 2 characters")
     private String title;
 
     /**
      * Description of the post.
      */
+    @NotEmpty(message = "Description is required")
+    @Size(min = 10, message = "Description must have at least 10 characters")
     private String description;
 
     /**
      * Content of the post.
      */
+    @NotEmpty(message = "Content is required")
+    @Size(min = 10, message = "Content must have at least 10 characters")
     private String content;
 
     /**

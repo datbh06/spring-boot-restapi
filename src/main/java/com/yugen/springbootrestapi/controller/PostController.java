@@ -4,6 +4,7 @@ import com.yugen.springbootrestapi.payload.PostDto;
 import com.yugen.springbootrestapi.payload.PostResponse;
 import com.yugen.springbootrestapi.service.PostService;
 import com.yugen.springbootrestapi.utils.AppConstants;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +30,7 @@ public class PostController {
      * @return the created post
      */
     @PostMapping
-    public ResponseEntity<PostDto> createPost(@RequestBody PostDto postDto) {
+    public ResponseEntity<PostDto> createPost(@Valid @RequestBody PostDto postDto) {
         return new ResponseEntity<>(postService.createPost(postDto), HttpStatus.CREATED);
     }
 
@@ -67,7 +68,7 @@ public class PostController {
      * @return the updated post
      */
     @PutMapping("/{id}")
-    public ResponseEntity<PostDto> updatePost(@PathVariable(name = "id") Long id, @RequestBody PostDto postDto) {
+    public ResponseEntity<PostDto> updatePost(@Valid @PathVariable(name = "id") Long id, @RequestBody PostDto postDto) {
         return ResponseEntity.ok(postService.updatePost(postDto, id));
     }
 
