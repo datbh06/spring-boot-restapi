@@ -7,6 +7,8 @@ import com.yugen.springbootrestapi.service.PostService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class PostServiceImpl implements PostService {
@@ -16,21 +18,34 @@ public class PostServiceImpl implements PostService {
     @Override
     public PostDto createPost(PostDto postDto) {
         //Convert DTO to Entity
+//        Post post = mapToEntity(postDto);
+        Post newPost = postRepository.save(mapToEntity(postDto));
+
+        //Convert Entity to DTO
+        return mapToDto(newPost);
+    }
+
+    @Override
+    public List<PostDto> getAllPosts() {
+        return null;
+    }
+
+    //Convert Entity to DTO
+    private PostDto mapToDto(Post post) {
+        PostDto postResponse = new PostDto();
+        postResponse.setId(post.getId());
+        postResponse.setTitle(post.getTitle());
+        postResponse.setDescription(post.getDescription());
+        postResponse.setContent(post.getContent());
+        return postResponse;
+    }
+
+    //Convert DTO to Entity
+    private Post mapToEntity(PostDto postDto) {
         Post post = new Post();
         post.setTitle(postDto.getTitle());
         post.setDescription(postDto.getDescription());
         post.setContent(postDto.getContent());
-
-        Post newPost = postRepository.save(post);
-
-        //Convert Entity to DTO
-        PostDto postResponse = new PostDto();
-        postResponse.setId(newPost.getId());
-        postResponse.setTitle(newPost.getTitle());
-        postResponse.setDescription(newPost.getDescription());
-        postResponse.setContent(newPost.getContent());
-
-        return postResponse;
-
+        return post;
     }
 }
