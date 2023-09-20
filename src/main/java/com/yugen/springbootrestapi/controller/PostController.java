@@ -54,5 +54,27 @@ public class PostController {
         return ResponseEntity.ok(postService.getPostById(id));
     }
 
+    /**
+     * Updates a post.
+     *
+     * @param id      the id of the post to update
+     * @param postDto the data transfer object containing the details of the post
+     * @return the updated post
+     */
+    @PutMapping("/{id}")
+    public ResponseEntity<PostDto> updatePost(@PathVariable(name = "id") Long id, @RequestBody PostDto postDto) {
+        return ResponseEntity.ok(postService.updatePost(postDto, id));
+    }
+
+    /**
+     * Deletes a post.
+     *
+     * @param id the id of the post to delete
+     */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deletePost(@PathVariable(name = "id") Long id) {
+        postService.deletePostById(id);
+        return ResponseEntity.ok("Post deleted successfully");
+    }
 
 }

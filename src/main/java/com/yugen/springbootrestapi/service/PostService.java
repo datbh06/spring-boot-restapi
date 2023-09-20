@@ -31,4 +31,21 @@ public interface PostService {
      * @return the post with the given id
      */
     PostDto getPostById(Long id);
+
+    /**
+     * Updates a post.
+     *
+     * @param postDto the data transfer object containing the details of the post
+     * @param id      the id of the post to update
+     * @return the updated post
+     */
+    PostDto updatePost(PostDto postDto, Long id);
+
+    /**
+     * Deletes a post.
+     *
+     * @param id the id of the post to delete
+     */
+    void deletePostById(Long id);
+
 }
