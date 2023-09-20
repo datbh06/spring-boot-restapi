@@ -58,4 +58,34 @@ public class CommentController {
             @PathVariable(value = "commentId") Long commentId) {
         return ResponseEntity.ok(commentService.getCommentById(postId, commentId));
     }
+
+    /**
+     * Updates a comment.
+     *
+     * @param postId     the id of the post to which the comment belongs
+     * @param commentId  the id of the comment to update
+     * @param commentDto the data transfer object containing the details of the comment
+     * @return the updated comment
+     */
+    @PutMapping("/post/{postId}/comments/{commentId}")
+    public ResponseEntity<CommentDto> updateComment(
+            @PathVariable(value = "postId") Long postId,
+            @PathVariable(value = "commentId") Long commentId,
+            @RequestBody CommentDto commentDto) {
+        return ResponseEntity.ok(commentService.updateComment(postId, commentId, commentDto));
+    }
+
+    /**
+     * Deletes a comment.
+     *
+     * @param postId    the id of the post to which the comment belongs
+     * @param commentId the id of the comment to delete
+     */
+    @DeleteMapping("/post/{postId}/comments/{commentId}")
+    public ResponseEntity<String> deleteComment(
+            @PathVariable(value = "postId") Long postId,
+            @PathVariable(value = "commentId") Long commentId) {
+        commentService.deleteComment(postId, commentId);
+        return ResponseEntity.ok("Comment deleted successfully");
+    }
 }
