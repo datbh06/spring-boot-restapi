@@ -23,9 +23,10 @@ public interface PostService {
      *
      * @param pageNo   the page number
      * @param pageSize the page size
+     * @param sortBy   the field to sort by
      * @return a list of all posts
      */
-    PostResponse getAllPosts(int pageNo, int pageSize);
+    PostResponse getAllPosts(int pageNo, int pageSize, String sortBy);
 
     /**
      * Retrieves a post by its id.
