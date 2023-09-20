@@ -40,7 +40,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(BlogAPIException.class)
     public ResponseEntity<ErrorDetails> handleBlogAPIException(
-            ResourceNotFoundException exception,
+            BlogAPIException exception,
             WebRequest request) {
         ErrorDetails errorDetails = new ErrorDetails(
                 new Date(), exception.getMessage(), request.getDescription(false));
@@ -49,4 +49,5 @@ public class GlobalExceptionHandler {
     }
 
     // Handle global exceptions
+
 }
