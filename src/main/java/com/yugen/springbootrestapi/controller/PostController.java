@@ -3,6 +3,7 @@ package com.yugen.springbootrestapi.controller;
 import com.yugen.springbootrestapi.payload.PostDto;
 import com.yugen.springbootrestapi.payload.PostResponse;
 import com.yugen.springbootrestapi.service.PostService;
+import com.yugen.springbootrestapi.utils.AppConstants;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,12 +42,12 @@ public class PostController {
      */
     @GetMapping
     public ResponseEntity<PostResponse> getAllPosts(
-            @RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNo,
-            @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize,
-            @RequestParam(value = "sortBy", defaultValue = "id", required = false) String sortBy,
-            @RequestParam(value = "sortDir", defaultValue = "ASC", required = false) String sortOrder
-    ) {
-        return new ResponseEntity<>(postService.getAllPosts(pageNo, pageSize, sortBy, sortOrder), HttpStatus.OK);
+            @RequestParam(value = "pageNo", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
+            @RequestParam(value = "pageSize", defaultValue = AppConstants.DEFAULT_PAGE_SIZE, required = false) int pageSize,
+            @RequestParam(value = "sortBy", defaultValue = AppConstants.DEFAULT_SORT_BY, required = false) String sortBy,
+            @RequestParam(value = "sortDir", defaultValue = AppConstants.DEFAULT_SORT_ORDER, required = false) String sortOrder) {
+
+        return ResponseEntity.ok(postService.getAllPosts(pageNo, pageSize, sortBy, sortOrder));
     }
 
     /**
