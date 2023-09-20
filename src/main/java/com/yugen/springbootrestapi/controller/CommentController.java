@@ -33,4 +33,15 @@ public class CommentController {
             @PathVariable(value = "postId") Long postId) {
         return new ResponseEntity<>(commentService.createComment(postId, commentDto), HttpStatus.CREATED);
     }
+
+    /**
+     * Retrieves all comments for a specific post.
+     *
+     * @param postId the ID of the post to which the comments belong
+     * @return a list of all comments for the given post
+     */
+    @GetMapping("/post/{postId}/comments")
+    public ResponseEntity<?> getCommentsByPostId(@PathVariable(value = "postId") Long postId) {
+        return new ResponseEntity<>(commentService.getCommentsByPostId(postId), HttpStatus.OK);
+    }
 }

@@ -2,6 +2,8 @@ package com.yugen.springbootrestapi.service;
 
 import com.yugen.springbootrestapi.payload.CommentDto;
 
+import java.util.List;
+
 /**
  * Service interface for managing comments.
  */
@@ -15,4 +17,12 @@ public interface CommentService {
      * @return the created comment
      */
     CommentDto createComment(Long postId, CommentDto commentDto);
+
+    /**
+     * Retrieves all comments for a specific post.
+     *
+     * @param postId the ID of the post to which the comments belong
+     * @return a list of all comments for the given post
+     */
+    List<CommentDto> getCommentsByPostId(Long postId);
 }

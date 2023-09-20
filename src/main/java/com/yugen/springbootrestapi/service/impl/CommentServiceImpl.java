@@ -10,6 +10,9 @@ import com.yugen.springbootrestapi.service.CommentService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * Implementation of the CommentService interface.
  */
@@ -28,11 +31,7 @@ public class CommentServiceImpl implements CommentService {
     private PostRepository postRepository;
 
     /**
-     * Creates a new comment for a specific post.
-     *
-     * @param postId the ID of the post to which the comment belongs
-     * @param commentDto the data transfer object containing the details of the comment
-     * @return the created comment
+     * {@inheritDoc}
      */
     @Override
     public CommentDto createComment(Long postId, CommentDto commentDto) {
@@ -49,6 +48,17 @@ public class CommentServiceImpl implements CommentService {
 
         // Convert entity to DTO
         return mapToDto(newComment);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<CommentDto> getCommentsByPostId(Long postId) {
+
+        List<Comment> comments = commentRepository.findByPostId(postId);
+
+        return comments.stream().map(this::mapToDto).collect(Collectors.toList());
     }
 
     /**
