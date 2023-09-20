@@ -1,6 +1,7 @@
 package com.yugen.springbootrestapi.controller;
 
 import com.yugen.springbootrestapi.payload.PostDto;
+import com.yugen.springbootrestapi.payload.PostResponse;
 import com.yugen.springbootrestapi.service.PostService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -39,7 +40,7 @@ public class PostController {
      * @return a list of all posts
      */
     @GetMapping
-    public ResponseEntity<List<PostDto>> getAllPosts(
+    public ResponseEntity<PostResponse> getAllPosts(
             @RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNo,
             @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize
     ) {

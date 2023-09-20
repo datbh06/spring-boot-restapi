@@ -3,6 +3,7 @@ package com.yugen.springbootrestapi.service.impl;
 import com.yugen.springbootrestapi.entity.Post;
 import com.yugen.springbootrestapi.exception.ResourceNotFoundException;
 import com.yugen.springbootrestapi.payload.PostDto;
+import com.yugen.springbootrestapi.payload.PostResponse;
 import com.yugen.springbootrestapi.repository.PostRepository;
 import com.yugen.springbootrestapi.service.PostService;
 import lombok.AllArgsConstructor;
@@ -43,7 +44,7 @@ public class PostServiceImpl implements PostService {
      * {@inheritDoc}
      */
     @Override
-    public List<PostDto> getAllPosts(int pageNo, int pageSize) {
+    public PostResponse getAllPosts(int pageNo, int pageSize) {
         //Create Pageable
         Pageable pageable = PageRequest.of(pageNo, pageSize);
 
@@ -52,7 +53,17 @@ public class PostServiceImpl implements PostService {
         //Get content from page object
         List<Post> postList = posts.getContent();
 
-        return postList.stream().map(this::mapToDto).collect(Collectors.toList());
+        List<PostDto> content = postList.stream().map(this::mapToDto).collect(Collectors.toList());
+
+        PostResponse postResponse = new PostResponse();
+        postResponse.setContent(content);
+        postResponse.setPageNo(posts.getNumber());
+        postResponse.setPageSize(posts.getSize());
+        postResponse.setTotalElements(posts.getTotalElements());
+        postResponse.setTotalPages(posts.getTotalPages());
+        postResponse.setLast(posts.isLast());
+
+        return postResponse;
     }
 
     /**

@@ -1,6 +1,7 @@
 package com.yugen.springbootrestapi.service;
 
 import com.yugen.springbootrestapi.payload.PostDto;
+import com.yugen.springbootrestapi.payload.PostResponse;
 
 import java.util.List;
 
@@ -24,7 +25,7 @@ public interface PostService {
      * @param pageSize the page size
      * @return a list of all posts
      */
-    List<PostDto> getAllPosts(int pageNo, int pageSize);
+    PostResponse getAllPosts(int pageNo, int pageSize);
 
     /**
      * Retrieves a post by its id.
