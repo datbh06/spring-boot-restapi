@@ -25,4 +25,13 @@ public interface CommentService {
      * @return a list of all comments for the given post
      */
     List<CommentDto> getCommentsByPostId(Long postId);
+
+    /**
+     * Retrieves a comment by its id.
+     *
+     * @param commentId the id of the comment to retrieve
+     * @param postId    the id of the post to which the comment belongs
+     * @return the retrieved comment
+     */
+    CommentDto getCommentById(Long postId, Long commentId);
 }
