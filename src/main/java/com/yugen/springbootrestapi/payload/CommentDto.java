@@ -1,5 +1,8 @@
 package com.yugen.springbootrestapi.payload;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 /**
@@ -15,16 +18,21 @@ public class CommentDto {
     /**
      * Name of the commenter.
      */
+    @NotEmpty(message = "Name is required")
     private String name;
 
     /**
      * Email of the commenter.
      */
+    @NotEmpty(message = "Email is required")
+    @Email(message = "Email must be valid email address format (e.g. abc@gmail.com)")
     private String mail;
 
     /**
      * Body of the comment.
      */
+    @NotEmpty(message = "Body is required")
+    @Size(min = 10, message = "Body must have at least 10 characters")
     private String body;
 
 }

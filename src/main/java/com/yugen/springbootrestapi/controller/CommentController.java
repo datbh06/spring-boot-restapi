@@ -2,6 +2,7 @@ package com.yugen.springbootrestapi.controller;
 
 import com.yugen.springbootrestapi.payload.CommentDto;
 import com.yugen.springbootrestapi.service.CommentService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +30,7 @@ public class CommentController {
      */
     @PostMapping("/post/{postId}/comments")
     public ResponseEntity<CommentDto> createComment(
-            @RequestBody CommentDto commentDto,
+            @Valid @RequestBody CommentDto commentDto,
             @PathVariable(value = "postId") Long postId) {
         return new ResponseEntity<>(commentService.createComment(postId, commentDto), HttpStatus.CREATED);
     }
@@ -71,7 +72,7 @@ public class CommentController {
     public ResponseEntity<CommentDto> updateComment(
             @PathVariable(value = "postId") Long postId,
             @PathVariable(value = "commentId") Long commentId,
-            @RequestBody CommentDto commentDto) {
+            @Valid @RequestBody CommentDto commentDto) {
         return ResponseEntity.ok(commentService.updateComment(postId, commentId, commentDto));
     }
 
