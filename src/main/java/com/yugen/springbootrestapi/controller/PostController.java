@@ -9,20 +9,35 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Controller for managing posts.
+ */
 @RestController
 @RequestMapping("/api/posts")
 @AllArgsConstructor
 public class PostController {
 
+    /**
+     * Service for managing posts.
+     */
     private final PostService postService;
 
-    //Create Post
+    /**
+     * Creates a new post.
+     *
+     * @param postDto the data transfer object containing the details of the post
+     * @return the created post
+     */
     @PostMapping
     public ResponseEntity<PostDto> createPost(@RequestBody PostDto postDto) {
         return new ResponseEntity<>(postService.createPost(postDto), HttpStatus.CREATED);
     }
 
-    //Get All Posts
+    /**
+     * Retrieves all posts.
+     *
+     * @return a list of all posts
+     */
     @GetMapping
     public ResponseEntity<List<PostDto>> getAllPosts() {
         return new ResponseEntity<>(postService.getAllPosts(), HttpStatus.OK);

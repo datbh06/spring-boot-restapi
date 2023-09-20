@@ -10,29 +10,46 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
+/**
+ * Implementation of the PostService interface.
+ */
 @Service
 @AllArgsConstructor
 public class PostServiceImpl implements PostService {
 
+    /**
+     * Repository for managing posts in the database.
+     */
     private PostRepository postRepository;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public PostDto createPost(PostDto postDto) {
         //Convert DTO to Entity
-//        Post post = mapToEntity(postDto);
         Post newPost = postRepository.save(mapToEntity(postDto));
 
         //Convert Entity to DTO
         return mapToDto(newPost);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<PostDto> getAllPosts() {
         List<Post> posts = postRepository.findAll();
         return posts.stream().map(this::mapToDto).collect(Collectors.toList());
     }
 
-    //Convert Entity to DTO
+    /**
+     * Converts a Post entity to a PostDto.
+     *
+     * @param post the post entity to convert
+     * @return the converted PostDto
+     */
     private PostDto mapToDto(Post post) {
         PostDto postResponse = new PostDto();
         postResponse.setId(post.getId());
@@ -42,7 +59,12 @@ public class PostServiceImpl implements PostService {
         return postResponse;
     }
 
-    //Convert DTO to Entity
+    /**
+     * Converts a PostDTO  to a Post Entity.
+     *
+     * @param postDto the post dto to convert
+     * @return the converted post
+     */
     private Post mapToEntity(PostDto postDto) {
         Post post = new Post();
         post.setTitle(postDto.getTitle());
