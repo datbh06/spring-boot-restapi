@@ -21,12 +21,13 @@ public interface PostService {
     /**
      * Retrieves all posts.
      *
-     * @param pageNo   the page number
-     * @param pageSize the page size
-     * @param sortBy   the field to sort by
+     * @param pageNo    the page number
+     * @param pageSize  the page size
+     * @param sortBy    the field to sort by
+     * @param sortOrder the sort order
      * @return a list of all posts
      */
-    PostResponse getAllPosts(int pageNo, int pageSize, String sortBy);
+    PostResponse getAllPosts(int pageNo, int pageSize, String sortBy, String sortOrder);
 
     /**
      * Retrieves a post by its id.

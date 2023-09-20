@@ -45,9 +45,14 @@ public class PostServiceImpl implements PostService {
      * {@inheritDoc}
      */
     @Override
-    public PostResponse getAllPosts(int pageNo, int pageSize, String sortBy) {
+    public PostResponse getAllPosts(int pageNo, int pageSize, String sortBy, String sortOrder) {
+
+        //Create Sort
+        Sort sort = sortOrder.equalsIgnoreCase(Sort.Direction.ASC.name())
+                ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+
         //Create Pageable
-        Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
+        Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
 
         Page<Post> posts = postRepository.findAll(pageable);
 
@@ -82,8 +87,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public PostDto updatePost(PostDto postDto, Long id) {
 
-        Post post = postRepository.findById(id).orElseThrow(()
-                -> new ResourceNotFoundException("Post", "id", id));
+        Post post = postRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Post", "id", id));
 
         if (postDto.getTitle() != null) {
             post.setTitle(postDto.getTitle());
@@ -107,8 +111,7 @@ public class PostServiceImpl implements PostService {
      */
     @Override
     public void deletePostById(Long id) {
-        Post post = postRepository.findById(id).orElseThrow(()
-                -> new ResourceNotFoundException("Post", "id", id));
+        Post post = postRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Post", "id", id));
         postRepository.delete(post);
     }
 
