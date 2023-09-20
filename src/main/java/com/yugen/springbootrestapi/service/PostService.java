@@ -20,9 +20,11 @@ public interface PostService {
     /**
      * Retrieves all posts.
      *
+     * @param pageNo   the page number
+     * @param pageSize the page size
      * @return a list of all posts
      */
-    List<PostDto> getAllPosts();
+    List<PostDto> getAllPosts(int pageNo, int pageSize);
 
     /**
      * Retrieves a post by its id.

@@ -6,6 +6,9 @@ import com.yugen.springbootrestapi.payload.PostDto;
 import com.yugen.springbootrestapi.repository.PostRepository;
 import com.yugen.springbootrestapi.service.PostService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -40,9 +43,16 @@ public class PostServiceImpl implements PostService {
      * {@inheritDoc}
      */
     @Override
-    public List<PostDto> getAllPosts() {
-        List<Post> posts = postRepository.findAll();
-        return posts.stream().map(this::mapToDto).collect(Collectors.toList());
+    public List<PostDto> getAllPosts(int pageNo, int pageSize) {
+        //Create Pageable
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+
+        Page<Post> posts = postRepository.findAll(pageable);
+
+        //Get content from page object
+        List<Post> postList = posts.getContent();
+
+        return postList.stream().map(this::mapToDto).collect(Collectors.toList());
     }
 
     /**
