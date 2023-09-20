@@ -4,11 +4,11 @@ import com.yugen.springbootrestapi.entity.Post;
 import com.yugen.springbootrestapi.payload.PostDto;
 import com.yugen.springbootrestapi.repository.PostRepository;
 import com.yugen.springbootrestapi.service.PostService;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class PostServiceImpl implements PostService {
 
     private PostRepository postRepository;

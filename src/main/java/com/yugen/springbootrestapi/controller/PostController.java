@@ -2,7 +2,7 @@ package com.yugen.springbootrestapi.controller;
 
 import com.yugen.springbootrestapi.payload.PostDto;
 import com.yugen.springbootrestapi.service.PostService;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/posts")
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class PostController {
 
     private final PostService postService;
