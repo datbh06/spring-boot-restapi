@@ -48,6 +48,23 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
     }
 
-    // Handle global exceptions
+
+    /**
+     * Handles all other exceptions throughout the application.
+     *
+     * @param exception the exception that was thrown
+     * @param request   the current web request
+     * @return a ResponseEntity containing the details of the error
+     */
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorDetails> handleGlobalException(
+            Exception exception,
+            WebRequest request) {
+        ErrorDetails errorDetails = new ErrorDetails(
+                new Date(), exception.getMessage(), request.getDescription(false));
+
+        return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
 
 }
