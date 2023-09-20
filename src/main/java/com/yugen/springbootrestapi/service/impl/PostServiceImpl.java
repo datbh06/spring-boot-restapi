@@ -7,6 +7,7 @@ import com.yugen.springbootrestapi.payload.PostResponse;
 import com.yugen.springbootrestapi.repository.PostRepository;
 import com.yugen.springbootrestapi.service.PostService;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -29,16 +30,18 @@ public class PostServiceImpl implements PostService {
      */
     private PostRepository postRepository;
 
+    private ModelMapper modelMapper;
+
     /**
      * {@inheritDoc}
      */
     @Override
     public PostDto createPost(PostDto postDto) {
         //Convert DTO to Entity
-        Post newPost = postRepository.save(mapToEntity(postDto));
+        Post newPost = postRepository.save(modelMapper.map(postDto, Post.class));
 
         //Convert Entity to DTO
-        return mapToDto(newPost);
+        return modelMapper.map(newPost, PostDto.class);
     }
 
     /**
@@ -59,7 +62,9 @@ public class PostServiceImpl implements PostService {
         //Get content from page object
         List<Post> postList = posts.getContent();
 
-        List<PostDto> content = postList.stream().map(this::mapToDto).collect(Collectors.toList());
+        List<PostDto> content = postList.stream()
+                .map(post -> modelMapper.map(post, PostDto.class))
+                .collect(Collectors.toList());
 
         PostResponse postResponse = new PostResponse();
         postResponse.setContent(content);
@@ -78,7 +83,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public PostDto getPostById(Long id) {
         Post post = postRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Post", "id", id));
-        return mapToDto(post);
+        return modelMapper.map(post, PostDto.class);
     }
 
     /**
@@ -101,7 +106,7 @@ public class PostServiceImpl implements PostService {
 
         Post updatedPost = postRepository.save(post);
 
-        return mapToDto(updatedPost);
+        return modelMapper.map(updatedPost, PostDto.class);
     }
 
     /**
@@ -115,33 +120,4 @@ public class PostServiceImpl implements PostService {
         postRepository.delete(post);
     }
 
-
-    /**
-     * Converts a Post entity to a PostDto.
-     *
-     * @param post the post entity to convert
-     * @return the converted PostDto
-     */
-    private PostDto mapToDto(Post post) {
-        PostDto postResponse = new PostDto();
-        postResponse.setId(post.getId());
-        postResponse.setTitle(post.getTitle());
-        postResponse.setDescription(post.getDescription());
-        postResponse.setContent(post.getContent());
-        return postResponse;
-    }
-
-    /**
-     * Converts a PostDTO  to a Post Entity.
-     *
-     * @param postDto the post dto to convert
-     * @return the converted post
-     */
-    private Post mapToEntity(PostDto postDto) {
-        Post post = new Post();
-        post.setTitle(postDto.getTitle());
-        post.setDescription(postDto.getDescription());
-        post.setContent(postDto.getContent());
-        return post;
-    }
 }

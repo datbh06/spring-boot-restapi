@@ -9,6 +9,7 @@ import com.yugen.springbootrestapi.repository.CommentRepository;
 import com.yugen.springbootrestapi.repository.PostRepository;
 import com.yugen.springbootrestapi.service.CommentService;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -33,12 +34,17 @@ public class CommentServiceImpl implements CommentService {
     private PostRepository postRepository;
 
     /**
+     * ModelMapper for converting entities to DTOs and vice versa.
+     */
+    private ModelMapper modelMapper;
+
+    /**
      * {@inheritDoc}
      */
     @Override
     public CommentDto createComment(Long postId, CommentDto commentDto) {
-        Comment comment = mapToEntity(commentDto);
-
+//        Comment comment = mapToEntity(commentDto);
+        Comment comment = modelMapper.map(commentDto, Comment.class);
         // Set the post for the comment
         Post post = postRepository.findById(postId).orElseThrow(() -> new ResourceNotFoundException("Post", "id", postId));
 
@@ -48,7 +54,7 @@ public class CommentServiceImpl implements CommentService {
         Comment newComment = commentRepository.save(comment);
 
         // Convert entity to DTO
-        return mapToDto(newComment);
+        return modelMapper.map(newComment, CommentDto.class);
     }
 
     /**
@@ -59,7 +65,7 @@ public class CommentServiceImpl implements CommentService {
 
         List<Comment> comments = commentRepository.findByPostId(postId);
 
-        return comments.stream().map(this::mapToDto).collect(Collectors.toList());
+        return comments.stream().map(comment -> modelMapper.map(comment, CommentDto.class)).collect(Collectors.toList());
     }
 
 
@@ -83,7 +89,7 @@ public class CommentServiceImpl implements CommentService {
             throw new BlogAPIException(HttpStatus.BAD_REQUEST, "Comment does not belong to post");
         }
 
-        return mapToDto(comment);
+        return modelMapper.map(comment, CommentDto.class);
     }
 
     /**
@@ -115,7 +121,7 @@ public class CommentServiceImpl implements CommentService {
             comment.setName(commentDto.getName());
         }
         if (commentDto.getMail() != null) {
-        comment.setMail(commentDto.getMail());
+            comment.setMail(commentDto.getMail());
         }
         if (commentDto.getBody() != null) {
             comment.setBody(commentDto.getBody());
@@ -125,7 +131,7 @@ public class CommentServiceImpl implements CommentService {
         Comment updatedComment = commentRepository.save(comment);
 
         // Convert entity to DTO
-        return mapToDto(updatedComment);
+        return modelMapper.map(updatedComment, CommentDto.class);
     }
 
     /**
@@ -154,34 +160,4 @@ public class CommentServiceImpl implements CommentService {
         commentRepository.delete(comment);
     }
 
-
-    /**
-     * Converts a Comment entity to a CommentDto.
-     *
-     * @param comment the comment entity to convert
-     * @return the converted CommentDto
-     */
-    private CommentDto mapToDto(Comment comment) {
-        CommentDto commentDto = new CommentDto();
-        commentDto.setId(comment.getId());
-        commentDto.setName(comment.getName());
-        commentDto.setMail(comment.getMail());
-        commentDto.setBody(comment.getBody());
-        return commentDto;
-    }
-
-    /**
-     * Converts a CommentDto to a Comment entity.
-     *
-     * @param commentDto the data transfer object to convert
-     * @return the converted Comment entity
-     */
-    private Comment mapToEntity(CommentDto commentDto) {
-        Comment comment = new Comment();
-        comment.setId(commentDto.getId());
-        comment.setName(commentDto.getName());
-        comment.setMail(commentDto.getMail());
-        comment.setBody(commentDto.getBody());
-        return comment;
-    }
 }
