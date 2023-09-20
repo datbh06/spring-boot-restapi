@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -27,7 +28,8 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<PostDto> getAllPosts() {
-        return null;
+        List<Post> posts = postRepository.findAll();
+        return posts.stream().map(this::mapToDto).collect(Collectors.toList());
     }
 
     //Convert Entity to DTO
