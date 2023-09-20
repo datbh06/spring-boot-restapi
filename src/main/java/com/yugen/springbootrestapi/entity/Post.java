@@ -1,9 +1,7 @@
 package com.yugen.springbootrestapi.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,7 +9,8 @@ import java.util.Set;
 /**
  * Represents a Post entity in the database.
  */
-@Data
+@Getter
+@Setter
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor

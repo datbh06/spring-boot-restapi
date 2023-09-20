@@ -1,6 +1,9 @@
 package com.yugen.springbootrestapi.payload;
 
+import com.yugen.springbootrestapi.entity.Comment;
 import lombok.Data;
+
+import java.util.Set;
 
 /**
  * Represents a Data Transfer Object for the Post entity.
@@ -27,4 +30,9 @@ public class PostDto {
      * Content of the post.
      */
     private String content;
+
+    /**
+     * Set of comments for the post.
+     */
+    private Set<CommentDto> comments;
 }
