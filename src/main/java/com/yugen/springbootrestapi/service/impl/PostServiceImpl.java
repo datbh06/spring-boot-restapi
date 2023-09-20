@@ -1,6 +1,7 @@
 package com.yugen.springbootrestapi.service.impl;
 
 import com.yugen.springbootrestapi.entity.Post;
+import com.yugen.springbootrestapi.exception.ResourceNotFoundException;
 import com.yugen.springbootrestapi.payload.PostDto;
 import com.yugen.springbootrestapi.repository.PostRepository;
 import com.yugen.springbootrestapi.service.PostService;
@@ -42,6 +43,16 @@ public class PostServiceImpl implements PostService {
     public List<PostDto> getAllPosts() {
         List<Post> posts = postRepository.findAll();
         return posts.stream().map(this::mapToDto).collect(Collectors.toList());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public PostDto getPostById(Long id) {
+        Post post = postRepository.findById(id).orElseThrow(()
+                -> new ResourceNotFoundException("Post", "id", id));
+        return mapToDto(post);
     }
 
     /**

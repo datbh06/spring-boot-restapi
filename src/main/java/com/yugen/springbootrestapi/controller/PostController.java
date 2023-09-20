@@ -43,4 +43,16 @@ public class PostController {
         return new ResponseEntity<>(postService.getAllPosts(), HttpStatus.OK);
     }
 
+    /**
+     * Retrieves a post by its id.
+     *
+     * @param id the id of the post to retrieve
+     * @return the post with the given id
+     */
+    @GetMapping("/{id}")
+    public ResponseEntity<PostDto> getPostById(@PathVariable(name = "id") Long id) {
+        return ResponseEntity.ok(postService.getPostById(id));
+    }
+
+
 }

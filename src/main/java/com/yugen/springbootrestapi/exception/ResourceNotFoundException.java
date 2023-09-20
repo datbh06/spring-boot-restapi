@@ -24,7 +24,7 @@ public class ResourceNotFoundException extends RuntimeException {
     /**
      * Value of the field that was queried.
      */
-    private final String fieldValue;
+    private final Long fieldValue;
 
     /**
      * Constructs a new runtime exception with a detail message indicating
@@ -35,7 +35,7 @@ public class ResourceNotFoundException extends RuntimeException {
      * @param fieldName    the name of the field that was queried
      * @param fieldValue   the value of the field that was queried
      */
-    public ResourceNotFoundException(String resourceName, String fieldName, String fieldValue) {
+    public ResourceNotFoundException(String resourceName, String fieldName, Long fieldValue) {
         super(String.format("%s not found with %s : '%s'", resourceName, fieldName, fieldValue));
         this.resourceName = resourceName;
         this.fieldName = fieldName;
