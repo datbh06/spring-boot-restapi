@@ -1,6 +1,6 @@
 package com.yugen.springbootrestapi.controller;
 
-import com.yugen.springbootrestapi.payload.CommentDto;
+import com.yugen.springbootrestapi.payload.dto.CommentDto;
 import com.yugen.springbootrestapi.service.CommentService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;

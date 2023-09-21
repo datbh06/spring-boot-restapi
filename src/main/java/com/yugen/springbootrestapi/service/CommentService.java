@@ -1,6 +1,6 @@
 package com.yugen.springbootrestapi.service;
 
-import com.yugen.springbootrestapi.payload.CommentDto;
+import com.yugen.springbootrestapi.payload.dto.CommentDto;
 
 import java.util.List;
 

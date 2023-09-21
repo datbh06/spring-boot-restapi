@@ -1,4 +1,4 @@
-package com.yugen.springbootrestapi.payload;
+package com.yugen.springbootrestapi.payload.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;

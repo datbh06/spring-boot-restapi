@@ -1,5 +1,6 @@
-package com.yugen.springbootrestapi.payload;
+package com.yugen.springbootrestapi.payload.dto;
 
+import com.yugen.springbootrestapi.payload.dto.CommentDto;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.Data;

@@ -1,5 +1,6 @@
-package com.yugen.springbootrestapi.payload;
+package com.yugen.springbootrestapi.payload.response;
 
+import com.yugen.springbootrestapi.payload.dto.PostDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

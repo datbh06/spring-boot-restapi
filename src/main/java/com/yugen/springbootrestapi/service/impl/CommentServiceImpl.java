@@ -4,7 +4,7 @@ import com.yugen.springbootrestapi.entity.Comment;
 import com.yugen.springbootrestapi.entity.Post;
 import com.yugen.springbootrestapi.exception.BlogAPIException;
 import com.yugen.springbootrestapi.exception.ResourceNotFoundException;
-import com.yugen.springbootrestapi.payload.CommentDto;
+import com.yugen.springbootrestapi.payload.dto.CommentDto;
 import com.yugen.springbootrestapi.repository.CommentRepository;
 import com.yugen.springbootrestapi.repository.PostRepository;
 import com.yugen.springbootrestapi.service.CommentService;

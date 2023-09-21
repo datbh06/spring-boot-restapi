@@ -1,9 +1,7 @@
 package com.yugen.springbootrestapi.service;
 
-import com.yugen.springbootrestapi.payload.PostDto;
-import com.yugen.springbootrestapi.payload.PostResponse;
-
-import java.util.List;
+import com.yugen.springbootrestapi.payload.dto.PostDto;
+import com.yugen.springbootrestapi.payload.response.PostResponse;
 
 /**
  * Service interface for managing posts.

@@ -2,8 +2,8 @@ package com.yugen.springbootrestapi.service.impl;
 
 import com.yugen.springbootrestapi.entity.Post;
 import com.yugen.springbootrestapi.exception.ResourceNotFoundException;
-import com.yugen.springbootrestapi.payload.PostDto;
-import com.yugen.springbootrestapi.payload.PostResponse;
+import com.yugen.springbootrestapi.payload.dto.PostDto;
+import com.yugen.springbootrestapi.payload.response.PostResponse;
 import com.yugen.springbootrestapi.repository.PostRepository;
 import com.yugen.springbootrestapi.service.PostService;
 import lombok.AllArgsConstructor;
