@@ -14,7 +14,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * This class represents a custom implementation of the UserDetailsService interface for managing user authentication.
+ * This class represents a custom implementation of
+ * the UserDetailsService interface for managing user authentication.
  */
 @Service
 @AllArgsConstructor
