@@ -2,6 +2,7 @@ package com.yugen.springbootrestapi.controller;
 
 import com.yugen.springbootrestapi.payload.dto.LoginDto;
 import com.yugen.springbootrestapi.payload.dto.RegisterDto;
+import com.yugen.springbootrestapi.payload.response.JwtAuthResponse;
 import com.yugen.springbootrestapi.service.AuthService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -32,9 +33,11 @@ public class AuthController {
      * @return A ResponseEntity with a string response after successful login.
      */
     @PostMapping(value = {"/login", "/signin"})
-    public ResponseEntity<String> login(@RequestBody LoginDto loginDto) {
-        String response = authService.login(loginDto);
-        return ResponseEntity.ok(response);
+    public ResponseEntity<JwtAuthResponse> login(@RequestBody LoginDto loginDto) {
+        String token = authService.login(loginDto);
+        JwtAuthResponse jwtAuthResponse = new JwtAuthResponse();
+        jwtAuthResponse.setAccessToken(token);
+        return ResponseEntity.ok(jwtAuthResponse);
     }
 
     /**

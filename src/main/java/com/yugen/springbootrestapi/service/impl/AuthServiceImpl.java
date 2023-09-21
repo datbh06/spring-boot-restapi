@@ -7,6 +7,7 @@ import com.yugen.springbootrestapi.payload.dto.LoginDto;
 import com.yugen.springbootrestapi.payload.dto.RegisterDto;
 import com.yugen.springbootrestapi.repository.RoleRepository;
 import com.yugen.springbootrestapi.repository.UserRepository;
+import com.yugen.springbootrestapi.security.JwtTokenProvider;
 import com.yugen.springbootrestapi.service.AuthService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -33,6 +34,7 @@ public class AuthServiceImpl implements AuthService {
     private UserRepository userRepository;
     private RoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;
+    private JwtTokenProvider jwtTokenProvider;
 
     /**
      * {@inheritDoc}
@@ -52,8 +54,10 @@ public class AuthServiceImpl implements AuthService {
                 .getContext()
                 .setAuthentication(authentication);
 
+        // Generate the JWT token
+
         // Return a success message
-        return "User logged in successfully";
+        return jwtTokenProvider.generateToken(authentication);
     }
 
     /**
