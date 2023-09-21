@@ -1,9 +1,11 @@
 package com.yugen.springbootrestapi.service.impl;
 
+import com.yugen.springbootrestapi.entity.Category;
 import com.yugen.springbootrestapi.entity.Post;
 import com.yugen.springbootrestapi.exception.ResourceNotFoundException;
 import com.yugen.springbootrestapi.payload.dto.PostDto;
 import com.yugen.springbootrestapi.payload.response.PostResponse;
+import com.yugen.springbootrestapi.repository.CategoryRepository;
 import com.yugen.springbootrestapi.repository.PostRepository;
 import com.yugen.springbootrestapi.service.PostService;
 import lombok.AllArgsConstructor;
@@ -32,13 +34,22 @@ public class PostServiceImpl implements PostService {
 
     private ModelMapper modelMapper;
 
+    private CategoryRepository categoryRepository;
+
     /**
      * {@inheritDoc}
      */
     @Override
     public PostDto createPost(PostDto postDto) {
+
+        Category category = categoryRepository.findById(postDto.getCategoryId())
+                .orElseThrow(() -> new ResourceNotFoundException("Category", "id", postDto.getCategoryId()));
+
         //Convert DTO to Entity
-        Post newPost = postRepository.save(modelMapper.map(postDto, Post.class));
+        Post post = modelMapper.map(postDto, Post.class);
+
+        post.setCategory(category);
+        Post newPost = postRepository.save(post);
 
         //Convert Entity to DTO
         return modelMapper.map(newPost, PostDto.class);

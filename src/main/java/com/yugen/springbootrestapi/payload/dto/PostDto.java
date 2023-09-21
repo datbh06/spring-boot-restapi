@@ -43,4 +43,9 @@ public class PostDto {
      * Set of comments for the post.
      */
     private Set<CommentDto> comments;
+
+    /**
+     * The category ID of the post.
+     */
+    private Long categoryId;
 }
