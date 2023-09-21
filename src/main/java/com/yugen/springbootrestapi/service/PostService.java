@@ -3,6 +3,8 @@ package com.yugen.springbootrestapi.service;
 import com.yugen.springbootrestapi.payload.dto.PostDto;
 import com.yugen.springbootrestapi.payload.response.PostResponse;
 
+import java.util.List;
+
 /**
  * Service interface for managing posts.
  */
@@ -50,5 +52,13 @@ public interface PostService {
      * @param id the id of the post to delete
      */
     void deletePostById(Long id);
+
+    /**
+     * Retrieves all posts by category.
+     *
+     * @param categoryId the id of the category
+     * @return a list of all posts by category
+     */
+    List<PostDto> getPostsByCategory(Long categoryId);
 
 }

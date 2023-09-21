@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * Controller for managing posts.
  */
@@ -87,4 +89,15 @@ public class PostController {
         return ResponseEntity.ok("Post deleted successfully");
     }
 
+    /**
+     * Retrieves all posts by category.
+     *
+     * @param categoryId the id of the category
+     * @return a list of all posts by category
+     */
+    @GetMapping("/category/{id}")
+    public ResponseEntity<List<PostDto>> getPostsByCategory(@PathVariable("id") Long categoryId) {
+        List<PostDto> postDtos = postService.getPostsByCategory(categoryId);
+        return ResponseEntity.ok(postDtos);
+    }
 }
