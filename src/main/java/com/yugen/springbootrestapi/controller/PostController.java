@@ -4,7 +4,10 @@ import com.yugen.springbootrestapi.payload.dto.PostDto;
 import com.yugen.springbootrestapi.payload.response.PostResponse;
 import com.yugen.springbootrestapi.service.PostService;
 import com.yugen.springbootrestapi.utils.AppConstants;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,6 +23,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/posts")
 @AllArgsConstructor
+@Tag(name = "CRUD RestAPI for Post Resource")
 public class PostController {
 
     /**
@@ -33,6 +37,14 @@ public class PostController {
      * @param postDto the data transfer object containing the details of the post
      * @return the created post
      */
+    @Operation(
+            summary = "Create a new post RestAPI",
+            description = "Create Post REST API is used to save post into database"
+    )
+    @ApiResponse(
+            responseCode = "201",
+            description = "Http Status 201 CREATED"
+    )
     @SecurityRequirement(
             name = "bearerAuth"
     )
@@ -47,6 +59,14 @@ public class PostController {
      *
      * @return a list of all posts
      */
+    @Operation(
+            summary = "Get All Posts REST API",
+            description = "Get All Posts REST API is used to fetch all the posts from the database"
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Http Status 200 SUCCESS"
+    )
     @GetMapping
     public ResponseEntity<PostResponse> getAllPosts(
             @RequestParam(value = "pageNo", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
@@ -63,6 +83,14 @@ public class PostController {
      * @param id the id of the post to retrieve
      * @return the post with the given id
      */
+    @Operation(
+            summary = "Get Post By Id REST API",
+            description = "Get Post By Id REST API is used to get single post from the database"
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Http Status 200 SUCCESS"
+    )
     @GetMapping("/{id}")
     public ResponseEntity<PostDto> getPostById(@PathVariable(name = "id") Long id) {
         return ResponseEntity.ok(postService.getPostById(id));
@@ -75,6 +103,14 @@ public class PostController {
      * @param postDto the data transfer object containing the details of the post
      * @return the updated post
      */
+    @Operation(
+            summary = "update Post REST API",
+            description = "Update Post REST API is used to update a particular post in the database"
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Http Status 200 SUCCESS"
+    )
     @SecurityRequirement(
             name = "bearerAuth"
     )
@@ -89,6 +125,14 @@ public class PostController {
      *
      * @param id the id of the post to delete
      */
+    @Operation(
+            summary = "Delete Post REST API",
+            description = "Delete Post REST API is used to delete a particular post from the database"
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Http Status 200 SUCCESS"
+    )
     @SecurityRequirement(
             name = "bearerAuth"
     )
@@ -105,6 +149,13 @@ public class PostController {
      * @param categoryId the id of the category
      * @return a list of all posts by category
      */
+    @Operation(
+            summary = "Get Posts By Category REST API",
+            description = "Get Posts By Category REST API is used to fetch all the posts by category from the database")
+    @ApiResponse(
+            responseCode = "200",
+            description = "Http Status 200 SUCCESS"
+    )
     @GetMapping("/category/{id}")
     public ResponseEntity<List<PostDto>> getPostsByCategory(@PathVariable("id") Long categoryId) {
         List<PostDto> postDtos = postService.getPostsByCategory(categoryId);
