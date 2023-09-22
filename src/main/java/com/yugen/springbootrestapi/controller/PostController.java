@@ -4,6 +4,7 @@ import com.yugen.springbootrestapi.payload.dto.PostDto;
 import com.yugen.springbootrestapi.payload.response.PostResponse;
 import com.yugen.springbootrestapi.service.PostService;
 import com.yugen.springbootrestapi.utils.AppConstants;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -32,6 +33,9 @@ public class PostController {
      * @param postDto the data transfer object containing the details of the post
      * @return the created post
      */
+    @SecurityRequirement(
+            name = "bearerAuth"
+    )
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<PostDto> createPost(@Valid @RequestBody PostDto postDto) {
@@ -71,6 +75,9 @@ public class PostController {
      * @param postDto the data transfer object containing the details of the post
      * @return the updated post
      */
+    @SecurityRequirement(
+            name = "bearerAuth"
+    )
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<PostDto> updatePost(@PathVariable(name = "id") Long id, @Valid @RequestBody PostDto postDto) {
@@ -82,6 +89,9 @@ public class PostController {
      *
      * @param id the id of the post to delete
      */
+    @SecurityRequirement(
+            name = "bearerAuth"
+    )
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deletePost(@PathVariable(name = "id") Long id) {
