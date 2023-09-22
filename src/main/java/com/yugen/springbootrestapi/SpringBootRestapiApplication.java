@@ -30,7 +30,7 @@ import org.springframework.context.annotation.Bean;
                 url = "https://github.com/datbh06/spring-boot-restapi/tree/master"
         )
 )
-public class SpringBootRestapiApplication {
+public class SpringBootRestapiApplication{
 
     /**
      * Creates a new ModelMapper bean.
